@@ -5,23 +5,26 @@ import { zodResolver } from "@hookform/resolvers/zod";
 const DEFAULT_VALUES: RequestTripInputZodSchemaInputType = {
   hotelInn: "",
   name: "",
-  email: ""
+  email: "",
+  checkDate: {
+    in: "",
+    out: "",
+  },
 }
 
 export const useRequestTripForm = () => {
   const {
     register,
-    handleSubmit,
-    formState: { errors },
+    formState: { isValid, errors },
   } = useForm<RequestTripInputZodSchemaInputType>({
     resolver: zodResolver(requestTripInputZodSchema),
-    mode: "onChange",
+    mode: "all",
     defaultValues: DEFAULT_VALUES
   });
 
   return {
     register,
-    handleSubmit,
+    isValid,
     errors,
   }
 };
